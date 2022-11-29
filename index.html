@@ -105,6 +105,9 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
       try{
+        if(isNaN(firstNum)){
+          throw new InvalidInput(firstNum);
+        }
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);}catch(error){
         console.error(error);
       }finally{
@@ -114,7 +117,12 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-
+    class InvalidInput extends Error{
+      constructor(input){
+        this.name = 'InvalidInput';
+        super('Invalid input:'+input);
+      }
+    }
     // Start your code here
     // You may move this JS to another file if you wish
     function consoleLog(){
